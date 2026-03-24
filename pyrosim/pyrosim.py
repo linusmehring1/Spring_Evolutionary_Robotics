@@ -50,6 +50,10 @@ def Get_Touch_Sensor_Value_For_Link(linkName):
 
     pts = p.getContactPoints()
 
+    if pts is None:
+
+        return touchValue
+
     for pt in pts:
 
         linkIndex = pt[4]
@@ -97,6 +101,8 @@ def Prepare_Joint_Dictionary(bodyID):
         jointInfo = p.getJointInfo( bodyID , jointIndex )
 
         jointName = jointInfo[1]
+
+        jointName = jointName.decode("utf-8")
 
         jointNamesToIndices[jointName] = jointIndex
 
@@ -182,6 +188,10 @@ def Send_Synapse( sourceNeuronName , targetNeuronName , weight ):
 
  
 def Set_Motor_For_Joint(bodyIndex,jointName,controlMode,targetPosition,maxForce):
+
+    if isinstance(jointName, bytes):
+
+        jointName = jointName.decode("utf-8")
 
     p.setJointMotorControl2(
 
