@@ -1,4 +1,5 @@
 import pyrosim.pyrosim as pyrosim
+import random
 
 
 def create_world():
@@ -61,6 +62,16 @@ def Generate_Brain():
     pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
     pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
     pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
+
+    # Sensor neuron names (0, 1, 2) and motor neuron names (3, 4)
+    sensorNeurons = [0, 1, 2]
+    motorNeurons = [3, 4]
+
+    # Create fully connected network with random weights in [-1, 1]
+    for i in sensorNeurons:
+        for j in motorNeurons:
+            weight = random.random() * 2 - 1  # Random weight in [-1, 1]
+            pyrosim.Send_Synapse(sourceNeuronName=i, targetNeuronName=j, weight=weight)
 
     pyrosim.End()
 

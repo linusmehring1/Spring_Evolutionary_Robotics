@@ -30,6 +30,7 @@ class NEURAL_NETWORK:
 
     def Update(self):
 
+        # First, update all sensor neurons
         for neuronName in self.Get_Neuron_Names():
 
             if self.neurons[neuronName].Is_Sensor_Neuron():
@@ -38,7 +39,20 @@ class NEURAL_NETWORK:
 
             else:
 
-                self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron()
+                self.neurons[neuronName].Set_Value(0.0)
+
+        # Then, propagate values through synapses
+        for synapseKey in self.synapses:
+
+            sourceNeuronName = synapseKey[0]
+
+            targetNeuronName = synapseKey[1]
+
+            sourceValue = self.neurons[sourceNeuronName].Get_Value()
+
+            weight = self.synapses[synapseKey].Get_Weight()
+
+            self.neurons[targetNeuronName].Add_To_Value(sourceValue * weight)
 
     def Get_Neuron_Names(self):
 

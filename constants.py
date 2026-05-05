@@ -23,3 +23,10 @@ MOTOR_COMMAND_TIMES = numpy.linspace(
 )
 
 DATA_DIRECTORY = "data"
+
+numberOfGenerations = 10
+populationSize = 10
+
+numSensorNeurons = 4
+numMotorNeurons = 8
+motorJointRange = 0.2
