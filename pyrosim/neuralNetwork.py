@@ -54,6 +54,13 @@ class NEURAL_NETWORK:
 
             self.neurons[targetNeuronName].Add_To_Value(sourceValue * weight)
 
+        # Finally, threshold motor and hidden neurons
+        for neuronName in self.Get_Neuron_Names():
+
+            if not self.neurons[neuronName].Is_Sensor_Neuron():
+
+                self.neurons[neuronName].Threshold()
+
     def Get_Neuron_Names(self):
 
         return sorted(self.neurons.keys(), key=int)
